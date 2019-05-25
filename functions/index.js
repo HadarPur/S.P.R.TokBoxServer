@@ -27,12 +27,22 @@ exports.opentokSessionId = functions.https.onRequest((request, response) => {
         data :                   'name=SPR',
         initialLayoutClassList : ['focus']
       });
+      
+            //get token subscriber
+      var tokenMod = session.generateToken({
+        role :                   'moderator',
+        expireTime :             (new Date().getTime() / 1000)+(7 * 24 * 60 * 60), // in one week
+        data :                   'name=SPR',
+        initialLayoutClassList : ['focus']
+      });
 
       var data = {
         "apiKey": apiKey,
         "sessionId": session.sessionId,
         "tokenPublisher": tokenPub,
-        "tokenSubscriber": tokenSub
+        "tokenSubscriber": tokenSub,
+        "tokenModerator": tokenMod
+
       };
 
       console.log("data sent to http://localhost:%s", 5000)
